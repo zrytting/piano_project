@@ -1,0 +1,17 @@
+<!-- inherit from base.html-->
+{% extends "portfolio_app/base_template.html" %}
+
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+    <h1>Home Page</h2>
+    {% for i in student_active_portfolios %}
+        <div class="p-3 border">
+            <li class="list-group-item">Name: {{i.name}}
+                <p><strong>Portfolio: {{ student_active_portfolios.Portfolio.title }} <a href="{% url 'portfolio_details' pk=i.pk%}" class="btn btn-secondary">Portfolio</a>
+                </strong></p>
+            </li>
+        </div>
+    {% endfor %}
+
+{% endblock %}

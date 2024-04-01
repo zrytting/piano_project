@@ -1,0 +1,31 @@
+<!-- inherit from base.html-->
+{% extends "portfolio_app/base_template.html" %}
+
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+
+<li class="list-group-item">
+    <h1><strong>{{ portfolio.title }}
+    </strong></h1>
+    <h2>Contact Email: {{ portfolio.contact_email}} </h2>
+    <p>Active={{portfolio.is_active}}</p>
+        
+        About:
+        {{portfolio.about}}
+    </p>
+        {% for i in projects %}
+            <div class="p-3 border" style= "background-color: #eeeeff;">
+                <p>
+                    <strong>Project: {{i.title}}
+                    <a href="{% url 'project_details' pk=portfolio.pk%}" class="btn btn-blue">View</a>
+                    <a href="{% url 'update_project' portfolio_id=portfolio.pk project_id=i.pk%}" class="btn btn-green">Update</a>
+                    <a href="{% url 'delete_project' portfolio_id=portfolio.pk project_id=i.pk%}" class="btn btn-red">Delete</a>
+                    </strong>
+                </p>
+            </div>
+        {% endfor %}
+        <a href="{% url 'create_project' portfolio_id=portfolio.pk%}" class="btn btn-secondary"> + Create</a>
+
+
+{% endblock %}

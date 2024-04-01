@@ -1,0 +1,19 @@
+<!-- inherit from base.html-->
+{% extends "portfolio_app/base_template.html" %}
+
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+<h1>Delete {{project.title}}?</h1>
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    
+
+    <a href="{% url 'portfolio_details' pk=portfolio_id%}" class="btn btn-primary">Cancel</a>
+    <input type="submit" name=Submit class="btn btn-delete-red">
+</form>
+
+
+{% endblock %}
