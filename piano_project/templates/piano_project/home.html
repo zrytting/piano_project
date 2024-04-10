@@ -1,0 +1,18 @@
+<!-- inherit from base.html-->
+{% extends "piano_project/base_template.html" %}
+
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+    <h1>Home Page</h2>
+    {% for i in active_teachers %}
+        <div class="p-3 border">
+            <li class="list-group-item">Teacher: {{i.name}}
+                <p><strong><a href="{% url 'teacher_details' slug=i.slug%}" class="btn btn-green">Details</a>
+                </strong></p>
+            </li>
+        </div>
+    {% endfor %}
+    <a href="{% url 'create_teacher' %}" class = "btn btn-secondary"> Create </a>
+
+{% endblock %}

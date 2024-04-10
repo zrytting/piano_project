@@ -1,0 +1,27 @@
+<!-- inherit from base.html-->
+{% extends "piano_project/base_template.html" %}
+
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+<h1>{{teacher.name}}</h1>
+{% if teacher.photo %}
+    <img src="{{teacher.photo.url}}" alt="This is a photo of the teacher" width="200" height="200">
+{% endif %}
+<h2>{{teacher.phone_number}}</h2>
+<p>{{teacher.email}}</p>
+
+<p style="font-family: Cambria, 'Times New Roman', serif;"> 
+    <div class="p-3 border" style= "background-color: #ffebbb;"> 
+        {{teacher.message}}
+    </div>
+</p>
+<p> 
+    <div class="p-3 border" style= "background-color: #f5fff5;"> 
+        {{teacher.about}}
+    </div>
+</p>
+<a href="{% url 'update_teacher' slug=teacher.slug%}" class = "btn btn-green"> Update </a>
+
+<a href="{% url 'delete_teacher' slug=teacher.slug%}" class = "btn btn-red"> Delete </a>
+{% endblock %}

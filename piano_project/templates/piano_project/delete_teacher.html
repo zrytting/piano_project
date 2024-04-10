@@ -1,0 +1,19 @@
+<!-- inherit from base.html-->
+{% extends "piano_project/base_template.html" %}
+
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+<h1>Delete {{teacher.name}}'s Profile?</h1>
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    
+
+    <a href="{% url 'index'%}" class="btn btn-primary">Cancel</a>
+    <input type="submit" name=Submit class="btn btn-delete-red">
+</form>
+
+
+{% endblock %}
