@@ -21,7 +21,9 @@
         {{teacher.about}}
     </div>
 </p>
-<a href="{% url 'update_teacher' slug=teacher.slug%}" class = "btn btn-green"> Update </a>
+{% if user.is_authenticated %}
+    <a href="{% url 'update_teacher' slug=teacher.slug%}" class = "btn btn-green"> Update </a>
 
-<a href="{% url 'delete_teacher' slug=teacher.slug%}" class = "btn btn-red"> Delete </a>
+    <a href="{% url 'delete_teacher' slug=teacher.slug%}" class = "btn btn-red"> Delete </a>
+{% endif %}
 {% endblock %}
