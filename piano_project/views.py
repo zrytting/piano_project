@@ -2,7 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import *
-from .forms import teacherForm
+from .forms import teacherForm, CreateUserForm
+from django.contrib import messages
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+from .decorators import allowed_users
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def index(request):
@@ -26,6 +31,8 @@ def createTeacher(request):
     context = {'form': form}
     return render(request, 'piano_project/teacher_form.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles='teacher_role')
 def updateTeacher(request, slug):
     target_teacher = teacher.objects.get(slug=slug)
 
@@ -46,6 +53,8 @@ def updateTeacher(request, slug):
     context = {'form': form}
     return render(request, 'piano_project/teacher_form.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles='teacher_role')
 def deleteTeacher(request, slug):
     teacher_delete = teacher.objects.get(slug=slug)
 
@@ -55,3 +64,19 @@ def deleteTeacher(request, slug):
     else:
         context = {'teacher': teacher_delete}
         return render(request, 'piano_project/delete_teacher.html', context)
+    
+def registerPage(request):
+    form = CreateUserForm(request.POST)
+
+    if form.is_valid():
+        user = form.save()
+        username = form.cleaned_data.get('username')
+        group = Group.objects.get(name='teacher_role')
+        user.groups.add(group)
+        Teacher = teacher.objects.create(user=user, name=username, slug=slugify(username))
+        Teacher.save()
+
+        messages.success(request, 'Account was created for ' + username)
+        return redirect('login')
+    context={'form':form}
+    return render(request, 'registration/register.html', context)
