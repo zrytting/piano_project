@@ -22,8 +22,8 @@
     </div>
 </p>
 {% if user.is_authenticated %}
-    <a href="{% url 'update_teacher' slug=teacher.slug%}" class = "btn btn-green"> Update </a>
+    <a id="update-button" href="{% url 'update_teacher' slug=teacher.slug%}" class = "btn btn-green"> Update </a>
 
-    <a href="{% url 'delete_teacher' slug=teacher.slug%}" class = "btn btn-red"> Delete </a>
+    <a id="delete-button" href="{% url 'delete_teacher' slug=teacher.slug%}" class = "btn btn-red"> Delete </a>
 {% endif %}
 {% endblock %}
