@@ -6,4 +6,10 @@ from .models import teacher
 class teacherForm(ModelForm):
     class Meta:
         model = teacher
-        fields=('name','studio','message','about','phone_number','photo','email')
+        fields='__all__'
+        exclude=['user','slug','active']
+
+class CreateUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = {'username','email','password1','password2'}
