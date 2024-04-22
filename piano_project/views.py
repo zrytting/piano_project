@@ -17,6 +17,8 @@ def index(request):
 class teacherDetailView(generic.DetailView):
     model = teacher
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles='teacher_role')
 def createTeacher(request):
     form = teacherForm()
     

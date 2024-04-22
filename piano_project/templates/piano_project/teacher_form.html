@@ -7,7 +7,9 @@
 <h1>Create a New Teacher Profile</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        
+        <div>
+        <button type="submit" style="margin-top: 20px">Create Profile</button>
+        </div>
         <label for="id_name">Name:</label>
         <div>
             {{ form.name }}
@@ -36,7 +38,5 @@
         <div>
             {{ form.photo }}
         </div>
-
-        <button type="submit" style="margin-top: 20px">Create Profile</button>
     </form>
 {% endblock %}
