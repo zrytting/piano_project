@@ -45,9 +45,10 @@ def updateTeacher(request, slug):
         form = teacherForm(request.POST, request.FILES, instance=target_teacher)
         if form.is_valid():
             updated_teacher = form.save(commit=False)
+            print("Before save:", updated_teacher.name, updated_teacher.slug)
             updated_teacher.slug = slugify(updated_teacher.name)
             updated_teacher.active = True
-            print(updated_teacher)
+            print("After save:", updated_teacher.name, updated_teacher.slug)
             updated_teacher.save()
             
             return redirect('teacher_details', slug=updated_teacher.slug)
